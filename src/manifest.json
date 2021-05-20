@@ -1,0 +1,41 @@
+{
+    "name": "ServiceNow Switch",
+    "description": "simple tool to switch between instances",
+    "version": "0.0.104",
+    "manifest_version": 3,
+    "background": {
+      "service_worker": "background.js"
+    },
+    "action": {
+      "default_popup": "popup.html",
+      "default_title": "ServiceNow Switch"
+    },
+    "permissions": [
+      "activeTab",
+      "scripting",
+      "storage",
+      "tabs"
+    ],
+    "web_accessible_resources": 
+    [
+        {
+        "resources": ["frames/instance-frame/index.html", "css/fonts/font-awesome.min.css", "https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"],
+        "matches": ["<all_urls>"]
+        }
+    ],
+    "content_scripts": 
+    [
+        {
+          "js": 
+            [
+            "./services/instanceService.js",
+             "./services/instanceGroupService.js",
+             "./content-scripts/buttons.js",
+              "./content-scripts/back-end-scraper.js",
+              "./services/frameService.js"
+            ],
+
+          "matches": ["*://*.service-now.com/*"]
+        }
+    ]
+  }

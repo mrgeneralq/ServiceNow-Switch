@@ -1,0 +1,26 @@
+:root{
+
+    --clr-blue-70: #205B7A;
+    --clr-blue-10: #8CD4FB;
+    --clr-blue-40: #40BAFA;
+    --clr-blue-90: #45687A;
+    --clr-blue-50: #3493C7;
+
+
+    /* COLORS */
+
+    --clr-white: #fff;
+
+
+    /* FONTS */
+    --font-roboto: Arial;
+}
+
+body,html,h1,h2,h3{
+    margin: 0px;
+    padding: 0px;
+}
+
+body {
+    font-family: var(--font-roboto);
+}

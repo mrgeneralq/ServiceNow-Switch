@@ -1,0 +1,63 @@
+<html>
+    <head>
+        <script src="../../scripts/jquery-3.6.0.min.js"></script>
+        <script src="../../scripts/jquery-ui.js"></script>
+        <link rel="stylesheet" href="../../css/style.css">
+        <link rel="stylesheet" href="../../css/font-awesome.min.css">
+        <link rel="stylesheet" href="frame.css">
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>ServiceNow Switch</title>
+    </head>
+    
+    <body>
+
+        <header>
+            <h1>Instance Groups</h1>
+        </header>
+
+        <div id="content">
+            <select id="instance-group">
+              </select>
+
+              <div id="actions">
+                  <button id="add-group">Add</button>
+                  <button id="remove-group">Remove</button>
+              </div>
+
+                <div id="instances">
+                    <table id="tbl-instances">
+                        <colgroup>
+                            <col span="1" style="width: 10%;">
+                            <col span="1" style="width: 90%;">
+                        </colgroup>
+                        <thead>
+                          <tr>
+                            <th></th>
+                            <th></th>
+                          </tr>
+                        </thead>
+                        <tbody>
+                          <tr>
+                            <td><i class="fa fa-bars" aria-hidden="true"></i></td>
+                            <td>DEV</td>
+                          </tr>
+                          <tr>
+                            <td><i class="fa fa-bars" aria-hidden="true"></i></td>
+                            <td>PROD</td>
+                          </tr>
+                        </tbody>
+                      </table>
+                  </div>
+
+              <div id="actions">
+                <button id="add-group">Add</button>
+                <button id="remove-group">Remove</button>
+              </div>
+
+        </div>
+        <script type="module" src="./frame.js"></script>
+        
+
+    </body>
+</html>

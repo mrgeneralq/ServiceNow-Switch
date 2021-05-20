@@ -1,0 +1,61 @@
+<html>
+    <head>
+        <link rel="stylesheet" href="../../css/style.css">
+        <link rel="stylesheet" href="../../css/font-awesome.min.css">
+        <link rel="stylesheet" href="frame.css">
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>ServiceNow Switch</title>
+    </head>
+    
+    <body>
+
+        <header>
+           <i class="fa fa-arrow-left fa-2x" id="home"></i>
+           <h1>Manage Instance</h1>
+        </header>
+
+        <div id="content">
+
+            <div class="input-group">
+                <label for="instance-group">Instance Group</label>
+                <select id="instance-group"></select>
+            </div>
+
+            <div class="input-group">
+                <label for="prefix">Instance prefix</label>
+                <input type="text" id="prefix">
+            </div>
+
+            <div class="input-group">
+                <label for="label">Label</label>
+                <input type="text" id="label">
+            </div>
+
+            <div id="color-container">
+                <div class="input-group">
+                    <label for="background-color">Background</label>
+                    <input type="color" id="background-color">
+                </div>
+    
+                <div class="input-group" id="text-color-group">
+                    <label for="text-color">Text</label>
+                    <input type="color" id="text-color">
+                </div>
+            </div>
+
+            <div id="actions">
+                <button id="create-update">Create or Update</button>
+                <button id="delete">Delete</button>
+            </div>
+
+        </div>
+
+
+        <script src="../../services/instanceGroupService.js"></script>
+        <script src="../../services/instanceService.js"></script>
+        <script type="module" src="./frame.js"></script>
+        
+
+    </body>
+</html>

@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <link rel="stylesheet" href="./css/popup.css"> 
+        <link rel="stylesheet" href="./css/style.css">
+
+        <link rel="stylesheet" href="css/font-awesome.min.css">
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>ServiceNow Switch</title>
+    </head>
+
+<body>
+
+    <header>
+        <h1>ServiceNow Switch</h1>
+    </header>
+
+    <div class="splitted-container">
+        <div class="container" id="instance-container">
+            <iframe src="frames/instance-frame/index.html"></iframe>
+        </div>
+        <div class="vertical-line"></div>
+
+        <div id="navigation-container" class="container">
+            <iframe id="navigation-frame" src="frames/home/index.html"></iframe>
+            <div id="navbar">
+                <div class="menu-item active" id="home">
+                    <i class="fa fa-home fa-2x" aria-hidden="true"></i>
+                    <span>Home</span>
+                </div>
+                <div class="menu-item" id="instance-groups">
+                    <i class="fa fa-indent fa-2x" aria-hidden="true"></i>
+                    <span>Instance Groups</span>
+                </div>
+                <div class="menu-item" id="settings">
+                    <i class="fa fa-cogs fa-2x" aria-hidden="true"></i>
+                    <span>Settings</span>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <script type="module" src="./scripts/popup.js"></script>
+
+
+</body>
+
+</html>
