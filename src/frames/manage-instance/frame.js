@@ -22,3 +22,7 @@ async function loadInstanceGroups(){
         selectBox.appendChild(opt);
     }
 }
+
+document.querySelector("#create-update").addEventListener("click", function(){
+    alert("creation test");
+});

@@ -1,14 +1,26 @@
 import { InstanceGroup } from '../models/instanceGroup.js';
 
- export async function createInstanceGroup(name){
+ export async function createInstanceGroup(instanceGroup){
     const instanceGroups = await readSyncStorage("instance_groups");
-    instanceGroups[name] = {}
+    instanceGroups[instanceGroup["name"]] = instanceGroup;
+
     chrome.storage.sync.set({"instance_groups": instanceGroups});
 }
 
  export async function getInstanceGroupByName(name){
     const instanceGroups = await readSyncStorage("instance_groups");
     return instanceGroups[name];
+}
+
+export async function groupExists(groupName){
+    const allData = await readSyncStorage("instance_groups");
+    return Object.prototype.hasOwnProperty.call(allData, groupName);
+}
+
+export async function removeGroup(groupName){
+    const allData = await readSyncStorage("instance_groups");
+    delete allData[groupName];
+    chrome.storage.sync.set({"instance_groups": allData});
 }
 
 export async function getAllGroups(){
@@ -31,6 +43,8 @@ export async function getAllGroups(){
 
     return groups;
 }
+
+
 
 
 function readSyncStorage(key) {

@@ -14,17 +14,7 @@ header {
 }
 
 
-#actions button {
-    display: inline-block;
-    color: white;
-    border-radius: 5px;
-    height: 25px;
-    font-size: 0.8rem;
-    margin-right: 10px;
-}
-
 #actions button:hover {
-    background-color: var(--clr-blue-70);
     cursor: pointer;
 }
 
@@ -36,10 +26,6 @@ header {
     text-align: center;
 }
 
-#add-group {
-    background-color: var(--clr-green-20);
-    color: white;
-}
 
 #remove-group {
     background-color: darkred;
@@ -56,24 +42,35 @@ header {
 #actions button {
     display: inline-block;
     margin: 0px 10px;
-    background-color: var(--clr-blue-70);
-    color: white;
     border-radius: 5px;
     font-size: 0.8rem;
+    height: 25px;
 }
 
-#actions button:hover {
-    background-color: var(--clr-blue-50);
+#add-group {
+    background-color:var(--clr-blue-70);
+    color: white;
 }
 
-#instances {
+
+#actions button:disabled {
+        opacity: 0.3;
+}
+
+#instance-groups {
     width: 100%;
     margin-top: 10px;
-    height: 200px;
-    padding-left: 20px;
-    padding-right: 10px;
+    height: 250px;
     box-shadow: inset 0 0 5px #000000;
     border-radius: 5px;
+    overflow-y: hidden;
+    padding: 5px;
+}
+
+#instance-groups option {
+    display: flex;
+    font-size: 1rem;
+    align-items: center;
 }
 
 

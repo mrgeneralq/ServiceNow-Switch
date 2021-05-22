@@ -3,10 +3,13 @@ const $$ = e => document.querySelectorAll(e);
 
 $("#home").addEventListener("click", function(e){
   showFrame('home');
+  setActiveTab("home");
 });
 
 $("#instance-groups").addEventListener("click", function(e){
-  $("#navigation-frame").src = "frames/instance-groups/index.html";
+  showFrame("instance-groups");
+  setActiveTab("instance-groups");
+
 });
 
 
@@ -14,14 +17,19 @@ chrome.runtime.onMessage.addListener(function(message, sender, sendResponse) {
 
   if(message.action == "show-frame")
      showFrame(message.frame);
-
 });
 
 function showFrame(frameName){
   $("#navigation-frame").src = "frames/" + frameName + "/index.html";
 }
 
-function test(){
-  alert("test");
-}
+function setActiveTab(tabName){
 
+  const allTabs = ["home","settings","instance-groups"];
+
+  for(var tab of allTabs)
+    $("#" + tab).classList.remove("active");
+
+  $("#" + tabName).classList.add("active");
+
+}

@@ -1,9 +1,3 @@
-async function createInstanceGroup(name){
-    const instanceGroups = await readSyncStorage("instance_groups");
-    instanceGroups[name] = {}
-    chrome.storage.sync.set({"instance_groups": instanceGroups});
-}
-
 export function showFrame(frameName){
     chrome.runtime.sendMessage({action: "show-frame", frame: frameName});
 }
