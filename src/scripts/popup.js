@@ -15,6 +15,8 @@ $("#instance-groups").addEventListener("click", function(e){
 
 chrome.runtime.onMessage.addListener(function(message, sender, sendResponse) {
 
+alert(message.action);
+
   if(message.action == "show-frame")
      showFrame(message.frame);
 });

@@ -99,3 +99,8 @@ header {
 	cursor: move;
 }
 
+.edit-icon:hover {
+    cursor: pointer;
+    color: rgb(228, 137, 19);
+}
+

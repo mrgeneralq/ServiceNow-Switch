@@ -1,13 +1,37 @@
+import {Instance} from '../models/instance.js';
+
 async function getInstanceByPrefix(prefix){
     const instances = await readSyncStorage("instances");
     return instances[prefix];
 }
 
-async function createInstance(prefix, data){
+export async function createInstance(instance){
     const instances = await readSyncStorage("instances");
-    instances[prefix] = data;
+    instances[instance.prefix] = instance;
     chrome.storage.sync.set({"instances": instances});
 }
+
+export async function getAllInstancesByGroup(groupName){
+    
+    const allData = await readSyncStorage("instances");
+    var instances = [];
+
+    for (var key in allData) {
+        if (!Object.prototype.hasOwnProperty.call(allData, key)) 
+        continue;
+
+        var val = allData[key];
+
+        if(val.instanceGroup != groupName)
+        continue;
+
+        const instance = new Instance(val);
+        instances.push(instance);
+    }
+
+    return instances;
+}
+
 
 
 function readSyncStorage(key) {

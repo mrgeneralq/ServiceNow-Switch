@@ -1,18 +1,21 @@
 import * as instanceGroupService from '../../services/instanceGroupService.js';
 import * as frameService from '../../services/frameService.js';
+import * as instanceService from '../../services/instanceService.js';
 
 window.onload = async () => {
-    loadInstanceGroups();
+    await loadInstanceGroups();
+    await loadInstances();
 }
 
 document.querySelector("#instance-group").addEventListener("change", function(){
     const value = document.querySelector("#instance-group").value;
-    alert(value);
+    loadInstances();
 });
 
 document.querySelector("#add-instance").addEventListener("click", function(){
   frameService.showFrame("manage-instance");
 });
+
 
 var fixHelperModified = function(e, tr) {
     var $originals = tr.children();
@@ -56,4 +59,56 @@ async function loadInstanceGroups(){
         opt.innerHTML = group.name;
         selectBox.appendChild(opt);
     }
+}
+
+async function loadInstances(){
+
+    const instanceGroupName = document.querySelector("#instance-group").value;
+
+    const instances = await instanceService.getAllInstancesByGroup(instanceGroupName);
+
+    const tbody = document.querySelector("#instances tbody");
+    tbody.innerHTML = "";
+
+
+    for(var instance of instances){
+
+        const row = document.createElement("tr");
+        row.setAttribute("id", "edit-" + instance.prefix);
+
+        const dragColumn = document.createElement("td");
+        const dragIcon = document.createElement("i");
+        dragIcon.setAttribute("class", "fa fa-bars");
+        dragIcon.setAttribute("aria-hidden", "true");
+        dragColumn.appendChild(dragIcon);
+
+        const instanceColumn = document.createElement("td");
+        instanceColumn.innerText = instance.label;
+
+        const editColumn = document.createElement("td");
+        const editIcon = document.createElement("i");
+        editIcon.setAttribute("class", "fa fa-pencil edit-icon");
+        editIcon.setAttribute("aria-hidden", "true");
+        editColumn.appendChild(editIcon);
+
+        row.appendChild(dragColumn);
+        row.appendChild(instanceColumn);
+        row.appendChild(editColumn);
+
+        tbody.appendChild(row);
+
+    }
+
+    document.querySelectorAll(".edit-icon").forEach(function(element) {
+        element.addEventListener("click", function(e){
+            const instancePrefix = e.target.parentNode.parentNode.id.replace("edit-", "");
+
+            alert("click");
+           // frameService.showFrame("manage-instance");
+            chrome.runtime.sendMessage({
+                action: "edit-instance",
+                instance: instancePrefix
+            });
+        });
+    });
 }
