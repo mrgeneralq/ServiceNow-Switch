@@ -15,14 +15,12 @@ $("#instance-groups").addEventListener("click", function(e){
 
 chrome.runtime.onMessage.addListener(function(message, sender, sendResponse) {
 
-alert(message.action);
-
   if(message.action == "show-frame")
-     showFrame(message.frame);
+     showFrame(message.frame, message.parameters);
 });
 
-function showFrame(frameName){
-  $("#navigation-frame").src = "frames/" + frameName + "/index.html";
+function showFrame(frameName, parameters = ""){
+  $("#navigation-frame").src = "frames/" + frameName + "/index.html" + parameters;
 }
 
 function setActiveTab(tabName){

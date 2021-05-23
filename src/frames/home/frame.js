@@ -103,12 +103,7 @@ async function loadInstances(){
         element.addEventListener("click", function(e){
             const instancePrefix = e.target.parentNode.parentNode.id.replace("edit-", "");
 
-            alert("click");
-           // frameService.showFrame("manage-instance");
-            chrome.runtime.sendMessage({
-                action: "edit-instance",
-                instance: instancePrefix
-            });
+            frameService.showFrame("manage-instance", "?id=" + instancePrefix);
         });
     });
 }

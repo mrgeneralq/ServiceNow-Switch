@@ -1,5 +1,9 @@
-export function showFrame(frameName){
-    chrome.runtime.sendMessage({action: "show-frame", frame: frameName});
+export function showFrame(frameName, parameters = ""){
+    chrome.runtime.sendMessage({
+        action: "show-frame", 
+        frame: frameName,
+        parameters: parameters
+    });
 }
 
 

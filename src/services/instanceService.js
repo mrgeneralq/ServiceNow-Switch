@@ -1,6 +1,6 @@
 import {Instance} from '../models/instance.js';
 
-async function getInstanceByPrefix(prefix){
+export async function getInstanceByPrefix(prefix){
     const instances = await readSyncStorage("instances");
     return instances[prefix];
 }
