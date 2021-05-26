@@ -1,6 +1,3 @@
-import * as instanceGroupService from '../../services/instanceGroupService.js';
-import {InstanceGroup} from '../../models/instanceGroup.js';
-
 window.onload = async () => {
     setRemoveButtonEnabled(false);
     loadInstanceGroups();
@@ -16,7 +13,7 @@ document.querySelector("#instance-groups").addEventListener("change", function()
 
 
 async function loadInstanceGroups(){
-    const groups = await instanceGroupService.getAllGroups();
+    const groups = await InstanceGroupService.getAllGroups();
     const selectBox = document.querySelector("#instance-groups");
 
     selectBox.innerHTML = '';
@@ -37,7 +34,7 @@ document.querySelector("#add-group").addEventListener("click",async function(){
     if(!answer)
     return;
 
-    if(await instanceGroupService.groupExists(answer)){
+    if(await InstanceGroupService.groupExists(answer)){
         alert("This group already exists!");
         return;
     }
@@ -46,7 +43,7 @@ document.querySelector("#add-group").addEventListener("click",async function(){
         "name": answer
     });
 
-    await instanceGroupService.createInstanceGroup(group);
+    await InstanceGroupService.createInstanceGroup(group);
     alert("Group created!");
 
     loadInstanceGroups();
@@ -62,12 +59,16 @@ document.querySelector("#remove-group").addEventListener("click",async function(
         return;
     }
 
-    if(!instanceGroupService.groupExists(groupName)){
+    if(!InstanceGroupService.groupExists(groupName)){
         alert("This group does not exist!");
         return;
     }
 
-    await instanceGroupService.removeGroup(groupName);
+    const instances = await InstanceService.getAllInstancesByGroup(groupName);
+    for(var instance of instances)
+        await InstanceService.removeInstance(instance.prefix);
+
+    await InstanceGroupService.removeGroup(groupName);
     alert("Group deleted!");
 
     loadInstanceGroups();

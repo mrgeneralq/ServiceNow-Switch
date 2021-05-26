@@ -1,19 +1,22 @@
-import * as instanceGroupService from '../../services/instanceGroupService.js';
-import * as frameService from '../../services/frameService.js';
-import * as instanceService from '../../services/instanceService.js';
-
 window.onload = async () => {
     await loadInstanceGroups();
+
+    let url = new URLSearchParams(location.search);
+    const instanceGroup = url.get("instance_group");
+
+    if (instanceGroup != null) 
+        setGroup(instanceGroup);
+
     await loadInstances();
 }
 
-document.querySelector("#instance-group").addEventListener("change", function(){
-    const value = document.querySelector("#instance-group").value;
-    loadInstances();
+document.querySelector("#instance-group").addEventListener("change",async function(){
+   await loadInstances();
 });
 
 document.querySelector("#add-instance").addEventListener("click", function(){
-  frameService.showFrame("manage-instance");
+    const instanceGroup = document.querySelector("#instance-group").value;
+    FrameService.showFrame("manage-instance", "?instance_group=" + instanceGroup);
 });
 
 
@@ -44,11 +47,25 @@ $("#tbl-instances tbody").sortable({
     delay: 100,
     opacity: 0.6,
     cursor: 'move',
-    update: function() {}
+    update:async function(event, ui) {
+
+        const table = document.querySelector("#instances tbody");
+
+        for(var i = 0; i < table.rows.length; i++){
+
+            const row = table.rows[i];
+            var instance = await InstanceService.getInstanceByPrefix(row.dataset.instance);
+            instance.order = i + 1;
+
+           await InstanceService.createInstance(instance);
+        }
+
+        console.log('Instance list updated!');
+    }
     });
 
 async function loadInstanceGroups(){
-    const groups = await instanceGroupService.getAllGroups();
+    const groups = await InstanceGroupService.getAllGroups();
     const selectBox = document.querySelector("#instance-group");
 
     selectBox.innerHTML = '';
@@ -64,17 +81,21 @@ async function loadInstanceGroups(){
 async function loadInstances(){
 
     const instanceGroupName = document.querySelector("#instance-group").value;
+    console.log(instanceGroupName);
 
-    const instances = await instanceService.getAllInstancesByGroup(instanceGroupName);
+    const instances = await InstanceService.getAllInstancesByGroup(instanceGroupName);
+    console.log(instances);
+    
+    instances.sort((a, b) => (a.order - b.order));
 
     const tbody = document.querySelector("#instances tbody");
-    tbody.innerHTML = "";
 
+    tbody.innerHTML = "";
 
     for(var instance of instances){
 
         const row = document.createElement("tr");
-        row.setAttribute("id", "edit-" + instance.prefix);
+        row.setAttribute("data-instance", instance.prefix);
 
         const dragColumn = document.createElement("td");
         const dragIcon = document.createElement("i");
@@ -101,9 +122,16 @@ async function loadInstances(){
 
     document.querySelectorAll(".edit-icon").forEach(function(element) {
         element.addEventListener("click", function(e){
-            const instancePrefix = e.target.parentNode.parentNode.id.replace("edit-", "");
-
-            frameService.showFrame("manage-instance", "?id=" + instancePrefix);
+            const instancePrefix = e.target.parentNode.parentNode.dataset.instance;
+            const instanceGroup = document.querySelector("#instance-group").value;
+            
+            FrameService.showFrame("manage-instance", "?id=" + instancePrefix + "&instance_group=" + instanceGroup);
         });
     });
+}
+
+
+function setGroup(group){
+    const selectBox = document.querySelector("#instance-group");
+    selectBox.value = group;
 }

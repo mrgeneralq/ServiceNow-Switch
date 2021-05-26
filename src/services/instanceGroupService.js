@@ -1,51 +1,50 @@
-import { InstanceGroup } from '../models/instanceGroup.js';
+class InstanceGroupService {
 
- export async function createInstanceGroup(instanceGroup){
-    const instanceGroups = await readSyncStorage("instance_groups");
-    instanceGroups[instanceGroup["name"]] = instanceGroup;
-
-    chrome.storage.sync.set({"instance_groups": instanceGroups});
-}
-
- export async function getInstanceGroupByName(name){
-    const instanceGroups = await readSyncStorage("instance_groups");
-    return instanceGroups[name];
-}
-
-export async function groupExists(groupName){
-    const allData = await readSyncStorage("instance_groups");
-    return Object.prototype.hasOwnProperty.call(allData, groupName);
-}
-
-export async function removeGroup(groupName){
-    const allData = await readSyncStorage("instance_groups");
-    delete allData[groupName];
-    chrome.storage.sync.set({"instance_groups": allData});
-}
-
-export async function getAllGroups(){
-    const AllData = await readSyncStorage("instance_groups");
-
-    //TODO later on fetch actual instance group data
-    var groups = [];
-
-    for (var key in AllData) {
-        if (!Object.prototype.hasOwnProperty.call(AllData, key)) 
-        continue;
-
-        var val = AllData[key];
-        const group = new InstanceGroup({
-            name: key
-        });
-
-        groups.push(group);
+    static async createInstanceGroup(instanceGroup){
+        const instanceGroups = await readSyncStorage("instance_groups");
+        instanceGroups[instanceGroup["name"]] = instanceGroup;
+    
+        chrome.storage.sync.set({"instance_groups": instanceGroups});
+    }
+    
+    static async getInstanceGroupByName(name){
+        const instanceGroups = await readSyncStorage("instance_groups");
+        return instanceGroups[name];
+    }
+    
+    static async groupExists(groupName){
+        const allData = await readSyncStorage("instance_groups");
+        return Object.prototype.hasOwnProperty.call(allData, groupName);
+    }
+    
+    static async removeGroup(groupName){
+        const allData = await readSyncStorage("instance_groups");
+        delete allData[groupName];
+        chrome.storage.sync.set({"instance_groups": allData});
+    }
+    
+    static async getAllGroups(){
+        const AllData = await readSyncStorage("instance_groups");
+    
+        //TODO later on fetch actual instance group data
+        var groups = [];
+    
+        for (var key in AllData) {
+            if (!Object.prototype.hasOwnProperty.call(AllData, key)) 
+            continue;
+    
+            var val = AllData[key];
+            const group = new InstanceGroup({
+                name: key
+            });
+    
+            groups.push(group);
+        }
+    
+        return groups;
     }
 
-    return groups;
 }
-
-
-
 
 function readSyncStorage(key) {
     return new Promise((resolve, reject) => {

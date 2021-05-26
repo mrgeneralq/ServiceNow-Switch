@@ -16,7 +16,7 @@
     --font-roboto: Arial;
 }
 
-body,html,h1,h2,h3{
+body,html,h1,h2,h3,form{
     margin: 0px;
     padding: 0px;
 }

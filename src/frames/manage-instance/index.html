@@ -17,6 +17,8 @@
 
         <div id="content">
 
+          <form id="form-instance"> 
+
             <div class="input-group">
                 <label for="instance-group">Instance Group</label>
                 <select id="instance-group"></select>
@@ -24,33 +26,40 @@
 
             <div class="input-group">
                 <label for="prefix">Instance prefix</label>
-                <input type="text" id="prefix">
+                <input type="text" id="prefix" required>
             </div>
 
             <div class="input-group">
                 <label for="label">Label</label>
-                <input type="text" id="label">
+                <input type="text" id="label" required>
             </div>
 
             <div id="color-container">
                 <div class="input-group">
                     <label for="background-color">Background</label>
-                    <input type="color" id="background-color">
+                    <input type="color" id="background-color" required>
                 </div>
     
                 <div class="input-group" id="text-color-group">
                     <label for="text-color">Text</label>
-                    <input type="color" id="text-color">
+                    <input type="color" id="text-color" required>
                 </div>
             </div>
 
             <div id="actions">
-                <button id="create-update">Create or Update</button>
+                <button id="create-update">Create</button>
                 <button id="delete">Delete</button>
             </div>
 
+       </form> 
+
         </div>
 
+        <script src="../../models/instance.js"></script>
+        <script src="../../models/instanceGroup.js"></script>
+        <script src="../../services/instanceGroupService.js"></script>
+        <script src="../../services/instanceService.js"></script>
+        <script src="../../services/frameService.js"></script>
         <script type="module" src="./frame.js"></script>
         
 

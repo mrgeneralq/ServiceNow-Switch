@@ -30,16 +30,9 @@ header i:hover{
 #actions button {
     display: inline-block;
     margin: 0px 2px;
-    background-color: var(--clr-blue-70);
-    color: white;
     border-radius: 5px;
     font-size: 0.8rem;
     height: 25px;
-}
-
-#actions button:hover {
-    background-color: var(--clr-blue-50);
-    cursor: pointer;
 }
 
 table {
@@ -92,7 +85,25 @@ input {
     text-align: center;
 }
 
+
+#create-update:hover {
+    background-color: var(--clr-blue-50);
+    cursor: pointer;
+}
+
+
+#create-update {
+    background-color: var(--clr-blue-70);
+    color: white;
+}
+
 #delete {
     background-color: darkred;
+    color: white;
+}
+
+#delete:hover {
+    background-color: red;
+    cursor: pointer;
 }
 

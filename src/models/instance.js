@@ -1,4 +1,4 @@
-export class Instance {
+class Instance {
     constructor(json) {
 
         if (!json) return;
@@ -7,5 +7,6 @@ export class Instance {
         this.label = json.label;
         this.backgroundColor = json.backgroundColor;
         this.textColor = json.textColor;
+        this.order = json.order;
     }
 }

@@ -19,7 +19,13 @@
     "web_accessible_resources": 
     [
         {
-        "resources": ["frames/instance-frame/index.html", "css/fonts/font-awesome.min.css", "https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"],
+        "resources": [ 
+          "content-scripts/buttons.js", 
+
+          "frames/instance-frame/index.html", 
+          "css/fonts/font-awesome.min.css",
+           "https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"
+          ],
         "matches": ["<all_urls>"]
         }
     ],
@@ -28,11 +34,12 @@
         {
           "js": 
             [
-            "./services/instanceService.js",
-             "./services/instanceGroupService.js",
-             "./content-scripts/buttons.js",
-              "./content-scripts/back-end-scraper.js",
-              "./services/frameService.js"
+            "models/instance.js",
+            "models/instanceGroup.js",
+            "services/instanceService.js",
+            "services/instanceGroupService.js",
+            "./content-scripts/back-end-scraper.js",
+            "./content-scripts/buttons.js"
             ],
 
           "matches": ["*://*.service-now.com/*"]
