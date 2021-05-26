@@ -1,4 +1,7 @@
 window.onload = async () => {
+
+    await ButtonService.refreshButtons();
+
     await loadInstanceGroups();
 
     let url = new URLSearchParams(location.search);
