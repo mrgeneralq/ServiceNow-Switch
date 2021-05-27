@@ -42,6 +42,11 @@
             "./content-scripts/buttons.js"
             ],
 
+            "css":
+            [
+              "css/buttons.css"
+            ],
+
           "matches": ["*://*.service-now.com/*"]
         }
     ]
