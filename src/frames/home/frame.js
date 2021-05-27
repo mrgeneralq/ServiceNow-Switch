@@ -63,7 +63,8 @@ $("#tbl-instances tbody").sortable({
            await InstanceService.createInstance(instance);
         }
 
-        console.log('Instance list updated!');
+        ButtonService.refreshButtons();
+
     }
     });
 
