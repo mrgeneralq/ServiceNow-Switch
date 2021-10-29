@@ -1,44 +1,51 @@
 const $ = e => document.querySelector(e);
 const $$ = e => document.querySelectorAll(e); 
 
+let _currentPrefix = "";
+
+
 $("#btn-add-group").addEventListener("click",async function(e){
 
   chrome.runtime.sendMessage({action: "show-frame", frame: "manage-instance"}, function(response) {
 
   });
+});
+
+$("#btn-remove-instance").addEventListener("click", async function(e){
+
+  InstanceService.removeInstance(_currentPrefix);
+  alert("Instance unlinked!");
 
 });
 
 window.onload = async () => {
 
-let [tab] = await chrome.tabs.query({ active: true, currentWindow: true });
-    
-      let url = new URL(tab.url);
-      const currentPrefix = url.hostname.split(".")[0];
-    
-      var instance = InstanceService.getInstanceByPrefix(currentPrefix);
-    
-      var groupName = $("#customer-name");
-    
-      if(instance == null){
-        groupName.innerHTML = "No instance group";
-        setVisibility("#btn-add-group", true);
-        setVisibility("#btn-remove-instance", false);
-        return;
-      }
-      
-      groupName.innerHTML = instance.instance_group;
-      setVisibility("#btn-add-group", false);
-      setVisibility("#btn-remove-instance", true);
+  $("#btn-add-group").style.display = "none";
+  $("#btn-remove-instance").style.display = "none";
 
-      chrome.tabs.sendMessage(tab.id ,{action: "grab-logo"}, function(response) {
-        $("#img-logo").src = response.logo;
-      });
+  let url = new URLSearchParams(location.search);
+  const id = url.get("id");
+  const group = url.get("instance_group");
+
+  if(id != null){
+
+    const instance = await InstanceService.getInstanceByPrefix(id);
+    if(instance != null)
+      setInstance(instance);
+    ;
+
+  }
+
+    function setInstance(instance){
+
+      $("#btn-add-group").style.display = "none";
+      $("#btn-remove-instance").style.display = "block";
+
+      var groupName = $("#group-name");
+      groupName.innerHTML = instance.instanceGroup;
+
+      _currentPrefix = instance.prefix;
     }
 
-
-    function setVisibility(query, bool){
-        $(query).style.display = (bool) ? "block": "none"
-    }
-
+  }
 
